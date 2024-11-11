@@ -24,7 +24,6 @@ int nb_of_tables(char *bddChoisie) {
 
 void loadBDD(char *bddChoisie) {
     printf("Chargement de la base de donnée %s\n", bddChoisie);
-    //Lecture du fichier et comptabiliser le nombre de fois ou le charactere # est present. Le fichier se situe dans le repertoire BDD
     int nb_tables = nb_of_tables(bddChoisie);
-    printf("Nombre de tables : %d\n", nb_tables);
+
 }

@@ -25,3 +25,6 @@ Globalement, ma fonction/fichier main.c ne sert qu'a déclencher la première fo
 On peut ajouter des bdd sous format CSV dans le dossier BDD (à condition de respecter le format).
 Mon programme lit le dossier, récupère les BDD et demande de choisir avec laquelle nous voulons intéragir.
 Il ne lit que 15 fichiers parce que le programme serait un peu lourd autrement selon moi. Cependant, ce paramètre est changeable dans le code de mon main.C .
+
+# Tree
+Concernant l'utilisage d'un arbre, comme vu avec vous, j'utiliserais un Btree sans lequel je vais inserer mes données, extraites du CSV.
