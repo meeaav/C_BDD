@@ -22,11 +22,11 @@ void afficher_menu(void) {
                 break;
             case '2':
                 printf("Sauvegarder une base de donnée\n");
-                // save();
+                /*save();*/
                 break;
             case '3':
                 printf("Charger une autre base de donnée\n");
-                // load();
+                /*load();*/
                 break;
             case 'Q':
             case 'q':
