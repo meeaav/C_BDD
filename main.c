@@ -4,6 +4,7 @@
 #include <string.h>
 #include <dirent.h>  /*Pour opendir(), readdir(), closedir()*/
 #include "menu/menu.h" /*Pour fonction d'affichage du menu*/
+#include "load/load.h" /*Pour fonction de chargement de la BDD*/
 
 /*Fonction pour scanner les BDD dans le répertoire BDD (.csv)*/
 int scan_bdd(char *listeBDD[], int max_fichiers) {
@@ -75,6 +76,9 @@ int main(void) {
         //Vérification de la bdd choisie.
         printf("Base de données choisie : %s\n", bddChoisie);
     }
+
+    //Charger la base de donnée choisie dans un BTREE
+    loadBDD(bddChoisie);
 
     /*Libération des ressources allouées*/
     for (int i = 0; i < listBDD; i++) {
