@@ -1,29 +1,44 @@
+//Libraries
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int nb_of_tables(char *bddChoisie) {
-    FILE *fichier = NULL;
-    char chemin[100] = "BDD/";
-    strcat(chemin, bddChoisie);
-    fichier = fopen(chemin, "r");
-    if (fichier == NULL) {
-        perror("Erreur lors de l'ouverture du fichier");
-        return 0;
-    }
-    char c;
-    int count = 0;
-    while ((c = fgetc(fichier)) != EOF) {
-        if (c == '#') {
-            count++;
-        }
-    }
-    fclose(fichier);
-    return count;
-}
+/*Constantes que nous pouvons changer. 
+Je les ai volontairement restreintes pour des raisons de simplicité*/
+#define MAX_LINE_LENGTH 200
+#define MAX_COLUMNS 10
+#define MAX_TABLES 10
+#define MAX_ROWS 100
+#define MAX_KEY_LENGTH 50
+#define MAX_NAME_LENGTH 100
 
-void loadBDD(char *bddChoisie) {
-    printf("Chargement de la base de donnée %s\n", bddChoisie);
-    int nb_tables = nb_of_tables(bddChoisie);
+// ########################## Structures ##########################
+//Structure pour les lignes
+typedef struct {
+    char** values;
+    int valueCount;
+} Row;
 
-}
+//Structure pour les tables
+typedef struct {
+    char name[MAX_NAME_LENGTH];
+    char** columnNames;
+    int columnCount;
+    Row* rows;
+    int rowCount;
+} Table;
+
+//Structure pour les noeuds de mon btree
+typedef struct BTreeNode {
+    char** keys;
+    Table** tables;
+    struct BTreeNode** children;
+    int keyCount;
+    int isLeaf;
+} BTreeNode;
+
+//Structure pour mon btree
+typedef struct {
+    BTreeNode* root;
+} BTree;
+
