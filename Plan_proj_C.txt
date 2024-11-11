@@ -1,8 +1,8 @@
 Pour le projet : 
 
 Step1
-Stocker bdd dans un fichier.txt sous forme [[][]]
-Récuperer liste chainée[structure][structure]]
+Stocker bdd dans un fichier.csv
+Récuperer sous forme de liste chainée[structure][structure]
 Afficher table
 !Prendre en compte les structures incomplètes
 !Prendre en compte unicité de l'ID
