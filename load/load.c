@@ -95,7 +95,6 @@ BTreeNode* createNode(int isLeaf) {
     return node;
 }
 
-
 //Fonction pour créer un btree
 BTree* createBTree() {
     //On alloue de la mémoire pour le btree et on crée un noeud
@@ -103,7 +102,6 @@ BTree* createBTree() {
     tree->root = createNode(1);
     return tree;
 }
-
 
 //Fonction pour insérer dans le btree
 void insertIntoBTree(BTree* tree, const char* key, Table* table) {
@@ -135,7 +133,6 @@ void insertIntoBTree(BTree* tree, const char* key, Table* table) {
     }
 }
 
-
 //Fonction principale pour charger la base de donnée
 void loadBDD(char *bddChoisie) {
     printf("Chargement de la base de donnée %s\n", bddChoisie);
@@ -151,13 +148,6 @@ void loadBDD(char *bddChoisie) {
     }
 
 
-    /* TODO
-     Gros chantier, coeur du Tree
-    
-    Test : affichage
-
-    ++++++ : reflechir à une opt affichage ? comme exercice année dernière de combat.
-    */
     //########## Lecture du fichier et chargement de la base de donnée##########
 
     //Initialisation des variables
@@ -226,4 +216,29 @@ void loadBDD(char *bddChoisie) {
             }
         }
     }
+
+    //On insère la dernière table dans le btree
+    if (currentTable != NULL) {
+        insertIntoBTree(chosedDBTree, currentTable->name, currentTable);
+    }
+
+    //Fermeture du fichier
+    fclose(fichier);
+    printf("Chargement terminé.\n");
+
+
+    //TEST
+    BTreeNode* root = chosedDBTree->root;
+    for (int i = 0; i < root->keyCount; i++) {
+        Table* table = root->tables[i];
+        printf("Table: %s\n", table->name);
+        printf("Colonnes: ");
+        for (int j = 0; j < table->columnCount; j++) {
+            printf("%s ", table->columnNames[j]);
+        }
+        printf("\n");
+        printf("Nombre de lignes: %d\n\n", table->rowCount);
+    }
+
+
 }
