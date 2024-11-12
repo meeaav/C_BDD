@@ -3,14 +3,19 @@
 #include "../save/save.h"
 #include "../load/load.h"
 
-void afficher_menu(void) {
+//Recuperer le btree en paramètre
+void display_menu( BTree* btree) {
     char choix;
-    
+    if (btree == NULL) {
+        printf("Erreur : Aucune base de donnée chargée\n");
+        return;
+    }
     do {
         printf("Choisissez une option :\n");
-        printf("1 : Effectuer des commandes\n");
-        printf("2 : Sauvegarder une base de donnée\n");
-        printf("3 : Charger une autre base de donnée\n");
+        printf("1 : Afficher la base de données\n");
+        printf("2 : Effectuer des commandes\n");
+        printf("3 : Sauvegarder les changements effectués\n");
+        printf("4 : Charger une autre base de donnée\n");
         printf("Q : Quitter\n");
         printf("Votre choix : ");
         
@@ -18,22 +23,29 @@ void afficher_menu(void) {
         
         switch(choix) {
             case '1':
-                printf("Effectuer des commandes\n");
+                //Afficher la base de données
+                printf("Affichage de la base de données\n");
                 break;
             case '2':
-                printf("Sauvegarder une base de donnée\n");
-                /*save();*/
+                //Effectuer des commandes
+                printf("Effectuer des commandes\n");
                 break;
             case '3':
+                //Sauvegarder les changements effectués
+                printf("Sauvegarde des changements effectués\n");
+                break;
+            case '4':
+                //Charger une autre base de donnée
                 printf("Charger une autre base de donnée\n");
-                /*load();*/
                 break;
             case 'Q':
             case 'q':
+                //Quitter
                 printf("Quitter\n");
                 break;
             default:
-                printf("Choix invalide\n");
+                printf("Erreur : Choix invalide\n");
+                break;
         }
         
     } while (choix != 'Q' && choix != 'q');

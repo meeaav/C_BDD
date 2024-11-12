@@ -61,7 +61,7 @@ char* choiceBDD(char *listeBDD[], int listBDD) {
             scanf("%d", &choix);
         } while (choix < 1 || choix > listBDD);
 
-        printf("Vous avez choisi la base de donnée : %s\n", listeBDD[choix - 1]); 
+        printf("Vous avez choisi la base de donnée : %s\n\n", listeBDD[choix - 1]); 
         return listeBDD[choix - 1]; // Retourne le nom de la base choisie
     }
 }
@@ -72,13 +72,16 @@ int main(void) {
     int listBDD = scan_bdd(listeBDD, 15); /*Récupérer les bases de données avec une limite à 15 */
     char *bddChoisie = choiceBDD(listeBDD, listBDD); /*Choisir une base de donnée et stocker le nom choisi */
 
-    if (bddChoisie != NULL) {
-        //Vérification de la bdd choisie.
-        printf("Base de données choisie : %s\n", bddChoisie);
-    }
-
     //Charger la base de donnée choisie dans un BTREE
-    loadBDD(bddChoisie);
+    BTree *btree = loadBDD(bddChoisie);
+
+    /*if (btree != NULL) {
+        printf("Chargement de la base de donnée réussi.\n");
+    }
+    */
+
+    //Affichage du menu
+    display_menu(btree);
 
     /*Libération des ressources allouées*/
     for (int i = 0; i < listBDD; i++) {

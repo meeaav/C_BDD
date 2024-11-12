@@ -12,3 +12,5 @@ Etat : Choix de la bdd OK, algo remplissage/insertion btree okkkkkkkkkkkkkkkkkkk
 
 
 NB: retirer les messages de suivi d'état + regarder pourquoi il y a une ligne en trop dans l'arbre + gerer le cas ou fichier csv VIDE + gerer le cas ou une cellule est vide (remplissage par none?)
+
+12 --> Obj : Afficher proprement la table lorsqu'elle est selectionnée.

@@ -134,8 +134,8 @@ void insertIntoBTree(BTree* tree, const char* key, Table* table) {
 }
 
 //Fonction principale pour charger la base de donnée
-void loadBDD(char *bddChoisie) {
-    printf("Chargement de la base de donnée %s\n", bddChoisie);
+BTree* loadBDD(char *bddChoisie) {
+    //printf("Chargement de la base de donnée %s\n", bddChoisie);
 
     //Ouverture du fichier (après reflexion j'aurais pu faire une fonction pour ouvrir le fichier)
     FILE *fichier = NULL;
@@ -144,7 +144,7 @@ void loadBDD(char *bddChoisie) {
     fichier = fopen(chemin, "r");
     if (fichier == NULL) {
         perror("Erreur lors de l'ouverture du fichier");
-        return;
+        return NULL;
     }
 
 
@@ -224,10 +224,10 @@ void loadBDD(char *bddChoisie) {
 
     //Fermeture du fichier
     fclose(fichier);
-    printf("Chargement terminé.\n");
+    //printf("Chargement terminé.\n");
 
 
-    //TEST
+    /*TEST AFFICHAGE
     BTreeNode* root = chosedDBTree->root;
     for (int i = 0; i < root->keyCount; i++) {
         Table* table = root->tables[i];
@@ -238,7 +238,7 @@ void loadBDD(char *bddChoisie) {
         }
         printf("\n");
         printf("Nombre de lignes: %d\n\n", table->rowCount);
-    }
+    }*/
 
-
+    return chosedDBTree;
 }

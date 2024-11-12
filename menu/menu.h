@@ -1,6 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 
-void afficher_menu(void);
+#include "../load/load.h"
+
+void display_menu(BTree* btree);
 
 #endif
