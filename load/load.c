@@ -88,19 +88,21 @@ BTreeNode* createNode(int isLeaf) {
     for (int i = 0; i < MAX_TABLES; i++) { //Boucle pour copier les clés, qui sont nos noms de tables
         node->keys[i] = (char*)malloc(MAX_KEY_LENGTH * sizeof(char)); //Alloc mémoire
     }
-
-    //###################################PAUSE###################################
-    /* TODO
-     allc mémoire pour les tables et les enfants
-     + verif si leaf ou pas
-    */
-
-
+    node->tables = (Table**)malloc(MAX_TABLES * sizeof(Table*)); //Alloc mémoire pour les tables
+    node->children = (BTreeNode**)malloc((MAX_TABLES + 1) * sizeof(BTreeNode*)); //Alloc mémoire pour les enfants
+    node->keyCount = 0;
+    node->isLeaf = isLeaf; //On indique si c'est une feuille ou non
+    return node;
 }
 
-/*TODO
-fonction pour creer mon btrree avec alloc mémoire pour le root et creation du noeud
-*/
+
+//Fonction pour créer un btree
+BTree* createBTree() {
+    //On alloue de la mémoire pour le btree et on crée un noeud
+    BTree* tree = (BTree*)malloc(sizeof(BTree));
+    tree->root = createNode(1);
+    return tree;
+}
 
 
 /*TODO
