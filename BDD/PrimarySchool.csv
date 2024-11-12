@@ -1,0 +1,18 @@
+# Table CLASSES
+id,professeur,niveau
+1,Mme Dupont,CP
+2,M. Martin,CE1
+3,Mme Lefèvre,CE2
+4,M. Bernard,CM1
+5,Mme Moreau,CM2
+
+# Table ELEVE
+id,prenom,nom,id_classe
+1,Lucas,Dupont,1
+2,Sophie,Dupont,1
+3,Thomas,Martin,2
+4,Léa,Martin,2
+5,Emma,Lefèvre,3
+6,Louis,Lefèvre,3
+7,Alice,Bernard,4
+8,Jules,Moreau,5

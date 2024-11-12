@@ -1,0 +1,16 @@
+10/09 - 14/10 -> Pause/lecture doc 
+18/10 - 10/11 --> Reprise sujets NSI py + exos Trancho + tests btree C/C++ (C++ : abandon) + debug et explications aux camarades
+Ccl : difficulté sera la gestion de mémoire. NB : libérer la mémoire allouée !!!!!
+Même fonctionnement noeuds/id que python. Cf exo Combat 2e année.
+
+11 --> ~5h de dev : Lecture csv OK
+                    Mise en place du Makefile, adaptation c99 + sous dossiers (lecture doc/blog)
+                    Mise en place de l'algoooo Btreeeeeeee
+
+Points difficulté : fuites mémoires (résolues) + lecture CSV (lecture de documentation officielle) + lecture DYNAMIQUE selon le nb de tables dans la base (creation de struc non fixes)
+Etat : Choix de la bdd OK, algo remplissage/insertion btree okkkkkkkkkkkkkkkkkkkkk
+
+
+NB: retirer les messages de suivi d'état + regarder pourquoi il y a une ligne en trop dans l'arbre + gerer le cas ou fichier csv VIDE + gerer le cas ou une cellule est vide (remplissage par none?)
+
+12 --> Obj : Afficher proprement la table lorsqu'elle est selectionnée.
