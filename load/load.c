@@ -105,14 +105,36 @@ BTree* createBTree() {
 }
 
 
-/*TODO
-fonction pour insérer une table dans le btree
- recupérer le root	vrifier si full dans ce cas split et update root sinon insert dans le noeud
-*/
+//Fonction pour insérer dans le btree
+void insertIntoBTree(BTree* tree, const char* key, Table* table) {
+    //On récupère la racine du btree et on vérifie si elle est pleine
+    BTreeNode* root = tree->root;
+    if (root->keyCount == MAX_TABLES - 1) {
+        //Si elle est pleine, on crée un nouveau noeud et on le met en racine
+        BTreeNode* newRoot = createNode(0);
+        newRoot->children[0] = root;
+        tree->root = newRoot;
+        strncpy(newRoot->keys[0], key, MAX_KEY_LENGTH - 1);
+        newRoot->keys[0][MAX_KEY_LENGTH - 1] = '\0';
+        newRoot->tables[0] = table;
+        newRoot->keyCount++;
+    } else {
+        //Sinon, on inssère la table dans la racine actuelle en décalant les clés
+        int i;
+        for (i = root->keyCount - 1; i >= 0 && strcmp(key, root->keys[i]) < 0; i--) {
+            strncpy(root->keys[i + 1], root->keys[i], MAX_KEY_LENGTH - 1); //On décale les clés
+            root->keys[i + 1][MAX_KEY_LENGTH - 1] = '\0'; //Ajout d'un caractère de fin de ligne
+            root->tables[i + 1] = root->tables[i]; //On décale les tables
+        }
 
-/*TODO
-fonction pour split un noeud ou alors l'implémenter dans insertTable direc 
-*/
+        //Ensuite on insère la clé et la table
+        strncpy(root->keys[i + 1], key, MAX_KEY_LENGTH - 1); //On insère la clé
+        root->keys[i + 1][MAX_KEY_LENGTH - 1] = '\0'; //On ajoute encore un caractère de fin de ligne pour signifier la fin de la clé
+        root->tables[i + 1] = table; //On insère la table
+        root->keyCount++; //On incrémente le nombre de clés pour passer à la suivante
+    }
+}
+
 
 //Fonction principale pour charger la base de donnée
 void loadBDD(char *bddChoisie) {
