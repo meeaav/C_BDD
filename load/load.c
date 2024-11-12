@@ -153,17 +153,77 @@ void loadBDD(char *bddChoisie) {
 
     /* TODO
      Gros chantier, coeur du Tree
-
-     Initialisation var 
-
-     Lire le csv ligne paer ligne et diriger en fonction
-     ne pas oublier de check les #
-        1er ligne = nom des tables
-        2eme ligne = nom des colonnes
     
     Test : affichage
 
     ++++++ : reflechir à une opt affichage ? comme exercice année dernière de combat.
     */
+    //########## Lecture du fichier et chargement de la base de donnée##########
 
+    //Initialisation des variables
+    char line[MAX_LINE_LENGTH];
+    char *token;
+    char *columnNames[MAX_COLUMNS];
+    int columnCount = 0;
+    Table *currentTable = NULL;
+    BTree *chosedDBTree = createBTree();
+    
+    //Boucle pour lire le fichier ligne par ligne
+    while (fgets(line, sizeof(line), fichier)) {
+        line[strcspn(line, "\n")] = 0;
+
+        if (line[0] == '#') { 
+            //Si la ligne commence par un #, c'est le nom de la table
+            if (currentTable != NULL) {
+                insertIntoBTree(chosedDBTree, currentTable->name, currentTable); //On insère la table dans le btree
+            }
+            char tableName[MAX_NAME_LENGTH]; //On récupère le nom de la table
+            strncpy(tableName, line + 1, MAX_NAME_LENGTH - 1); // On copie le nom de la table
+            tableName[MAX_NAME_LENGTH - 1] = '\0'; //On ajoute toujours un caractère de fin de ligne
+            currentTable = createTable(tableName, 0, NULL); //On crée la table
+            columnCount = 0; //On remet le compteur de colonnes à 0
+            //-->On a rempli le nom de la table
+
+        } else if (currentTable != NULL) { //Sinon, on lit les colonnes et les valeurs
+            if (columnCount == 0) {
+                //Si le compteur de colonnes est à 0, on lit les colonnes
+                token = strtok(line, ",");
+                while (token != NULL && columnCount < MAX_COLUMNS) {
+                    //On lit les colonnes et on les copie
+                    columnNames[columnCount] = (char*)malloc(MAX_NAME_LENGTH * sizeof(char)); //Alloc mémoire
+                    strncpy(columnNames[columnCount], token, MAX_NAME_LENGTH - 1); //Copiage
+                    columnNames[columnCount][MAX_NAME_LENGTH - 1] = '\0'; //Le caractère de fin de ligne
+                    columnCount++; //Incrémentation pour passer à la suivante
+                    token = strtok(NULL, ","); 
+                }
+
+                //On crée la table avec les colonnes
+                Table* newTable = createTable(currentTable->name, columnCount, columnNames); //On crée la table
+                free(currentTable); //On libère la mémoire de l'ancienne table
+                currentTable = newTable; //On met la nouvelle table à la place de l'ancienne
+                for (int i = 0; i < columnCount; i++) {
+                    //On libère la mémoire des colonnes
+                    free(columnNames[i]);
+                }
+                //-->On a rempli les colonnes  
+
+            } else {
+                //Sinon, on lit les valeurs
+                char *values[MAX_COLUMNS];
+                int valueCount = 0;
+                token = strtok(line, ","); 
+                while (token != NULL && valueCount < columnCount) {
+                    //On lit les valeurs et on les copie
+                    values[valueCount] = token; //Copiage de la valeur
+                    valueCount++; //Incrémentation
+                    token = strtok(NULL, ",");
+                }
+
+                //On insère les valeurs dans la table
+                insertIntoTable(currentTable, values); 
+
+                //-->On a rempli les valeurs
+            }
+        }
+    }
 }
