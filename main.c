@@ -52,7 +52,7 @@ char* choiceBDD(char *listeBDD[], int listBDD) {
     /*Si la liste est vide, prévenir l'utilisateur*/
     if (listBDD == 0) {
         printf("Aucune base de donnée n'a été trouvée.\n");
-        return NULL; // Retourne NULL si aucune base n'est trouvée
+        return NULL; //Retourne NULL si aucune base n'est trouvée
     } else {
         do {
             printf("\033[1;31m");
@@ -70,12 +70,12 @@ char* choiceBDD(char *listeBDD[], int listBDD) {
             printf("\033[1;32m");
             printf("Vous avez choisi de quitter.\n");
             printf("\033[0m");
-            return NULL; // Retourne NULL si l'utilisateur quitte
+            return NULL; //Retourne NULL si l'utilisateur quitte
         }
         printf("\033[1;32m");
         printf("Vous avez choisi la base de donnée : %s\n\n", listeBDD[choix - 1]); 
         printf("\033[0m");
-        return listeBDD[choix - 1]; // Retourne le nom de la base choisie
+        return listeBDD[choix - 1]; //Retourne le nom de la base choisie
     }
 }
 
@@ -87,7 +87,7 @@ int main(void) {
     char *bddChoisie = choiceBDD(listeBDD, listBDD); /*Choisir une base de donnée et stocker le nom choisi */
 
     if (bddChoisie == NULL) {
-        break; // Quitter si aucune base n'est choisie
+        break; //Quitter si aucune base n'est choisie
     }
 
     //Charger la base de donnée choisie dans un BTREE
