@@ -11,6 +11,16 @@ Points difficulté : fuites mémoires (résolues) + lecture CSV (lecture de docu
 Etat : Choix de la bdd OK, algo remplissage/insertion btree okkkkkkkkkkkkkkkkkkkkk
 
 
-NB: retirer les messages de suivi d'état + regarder pourquoi il y a une ligne en trop dans l'arbre + gerer le cas ou fichier csv VIDE + gerer le cas ou une cellule est vide (remplissage par none?)
 
-12 --> Obj : Afficher proprement la table lorsqu'elle est selectionnée.
+12 --> ~3h          Enregistrement du Btree sous forme de pointeur pour qu'il soit accessible sur d'autres fichiers. Strucutres définies dans mon load.h pour ça.
+                    Print de debug mis en commentaires
+                    Affichage de la table quand elle est selctionnée, gestion de Quitter + charger une autre bdd OK sans erreur segmentation.
+                    Affichage du menu OK
+
+      
+Points difficulté : Fuites mémoires + trop de temps passé sur format 
+Etat : Affichage BDD ok, terminal propre, gestion menu
+              
+Obj demain : faire les select.
+
+NB: regarder pourquoi il y a une ligne en trop dans l'arbre + gerer le cas ou fichier csv VIDE + gerer le cas ou une cellule est vide (remplissage par none?) + enlever commentaires inutiles/prints
