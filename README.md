@@ -28,3 +28,12 @@ Il ne lit que 15 fichiers parce que le programme serait un peu lourd autrement s
 
 # Tree
 Concernant l'utilisage d'un arbre, comme vu avec vous, j'utiliserais un Btree sans lequel je vais inserer mes données, extraites du CSV.
+
+
+# Sources
+Arbres :
+
+
+Style Tableau :
+https://stackoverflow.com/questions/3274824/color-console-in-ansi-c
+https://solarianprogrammer.com/2019/04/08/c-programming-ansi-escape-codes-windows-macos-linux-terminals/
