@@ -4,7 +4,7 @@ CFLAGS = -O2 -Wall -Wextra -Werror -ansi -std=c99
 CLIBS = -lm
 EXE = executable
 OBJ_DIR = obj/
-SRC_DIRS = load menu save
+SRC_DIRS = load menu save commands
 
 #Trouver tous les fichiers .c et .h dans les sous-répertoires
 FILEC := $(wildcard main.c $(addsuffix /*.c, $(SRC_DIRS)))

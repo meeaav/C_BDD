@@ -5,6 +5,8 @@
 #include <dirent.h>  /*Pour opendir(), readdir(), closedir()*/
 #include "menu/menu.h" /*Pour fonction d'affichage du menu*/
 #include "load/load.h" /*Pour fonction de chargement de la BDD*/
+#include "commands/commands.h" /*Pour fonction de commande SQL*/
+
 
 /*Fonction pour scanner les BDD dans le répertoire BDD (.csv)*/
 int scan_bdd(char *listeBDD[], int max_fichiers) {
@@ -97,7 +99,6 @@ int main(void) {
         printf("Chargement de la base de donnée réussi.\n");
     }
     */
-
     //Affichage du menu
     display_menu(btree);
     /*Libération des ressources allouées*/

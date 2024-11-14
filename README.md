@@ -10,6 +10,7 @@ Après m'être penchée sur l'algo, je me suis mise à developper des bouts de c
 # Technos utilisées
 Version de C : Bien qu'habituée au C90, j'ai recemment choisi de basculer vers du C99, notamment parce que j'ai la facheuse habitude des commentaires en //, n'existant pas en C90.
 Distrib : Debian 12
+Prérequis : gcc + make          
 Compilation :   cd "nom du dossier"
                 make
                 ./executable
