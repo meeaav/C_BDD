@@ -31,6 +31,8 @@ Mon makefile étant assez explicite concernant les erreurs grace à mes flags, j
 J'ai par contre utilisé valgrind pour les fuites mémoires, intégré dans un makefile sur ma linux. Je le pusherais sur git
 J'ai choisi valgrind car j'ai debug un ami qui avait installé cet outil, et je l'ai trouvé assez simple de compréhension.
 
+Pour m'en servir, je regardais le content de HEAP SUMMARY où étaient indiqués l'endroit de ma fuite mémoire.
+
 
 # Organisation
 J'ai organisé mon arborescence en fonction de mes fonctions principales, pour eviter que mes .h et .c soient désordonnés.
