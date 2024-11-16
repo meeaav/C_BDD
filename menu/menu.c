@@ -1,8 +1,4 @@
-#include <stdio.h>
 #include "menu.h"
-#include "../save/save.h"
-#include "../load/load.h"
-#include "../commands/commands.h"
 
 //Recuperer le btree en paramètre
 void display_menu( BTree* btree) {

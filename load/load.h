@@ -1,6 +1,13 @@
 #ifndef LOAD_H
 #define LOAD_H
 
+//Libraries
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/*Constantes que nous pouvons changer. 
+Je les ai volontairement restreintes pour des raisons de simplicité*/
 #define MAX_LINE_LENGTH 200
 #define MAX_COLUMNS 10
 #define MAX_TABLES 10
