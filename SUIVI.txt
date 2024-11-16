@@ -28,3 +28,4 @@ stop car malade
 
 NB: regarder pourquoi il y a une ligne en trop dans l'arbre + gerer le cas ou fichier csv VIDE + gerer le cas ou une cellule est vide (remplissage par none?) + enlever commentaires inutiles/prints
 + faire en une seule ligne les changements de couleur voir dans commands.C
++Revoir les nomenclatures parce que je fais n'importe quoi là

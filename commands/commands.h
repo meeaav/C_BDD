@@ -14,5 +14,7 @@
 
 //Fonction pour les commandes
 void commands(BTree* btree);
+char* delete(BTree* btree, char* commande);
+char* select(BTree* btree, char* commande);
 
 #endif
