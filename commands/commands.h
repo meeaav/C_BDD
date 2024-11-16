@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+#include <ctype.h> //Pour tolower
 #include "../save/save.h"
 #include "../menu/menu.h"
 #include "../load/load.h"
