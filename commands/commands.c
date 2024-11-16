@@ -1,44 +1,82 @@
 #include "commands.h"
 
-//Fonction pour select
+//On ignore les warnings pour les fonctions non déclarées parce que j'ai pas terminééééé
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wimplicit-function-declaration"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
+//########################## SELECT ##########################
 char* select(BTree* btree, char* commande) {
+    //Déclaration des variables
     char* colonnes = NULL;
     char* table = NULL;
+    char* condition = NULL;
+    char* colonne_where = NULL;
+    char* valeur_where = NULL;
     char* tmp = strtok(commande, " ");
 
     //On saute le SELECT
     if (tmp != NULL) {
         tmp = strtok(NULL, " ");
     }
-
     //On récupère les colonnes demandées jusqu'à FROM
     if (tmp != NULL) {
-        colonnes = tmp;
+        colonnes = strdup(tmp);
         while ((tmp = strtok(NULL, " ")) != NULL) {
             //Si on arrive à FROM, on arrête
             if (strcasecmp(tmp, "from") == 0) {
                 break;
             }
-            //On ajoute la colonne à la liste
-            colonnes = realloc(colonnes, strlen(colonnes) + strlen(tmp) + 2);
+            //On alloue de la mémoire pour les colonnes 
+            char* new_colonnes = realloc(colonnes, strlen(colonnes) + strlen(tmp) + 2);
+            if (new_colonnes == NULL) {
+                free(colonnes);
+                return "Erreur : Allocation mémoire échouée";
+            }
+            //On ajoute un espace entre chaque colonne
+            colonnes = new_colonnes;
             strcat(colonnes, " ");
             strcat(colonnes, tmp);
         }
     }
-
     //On récupère le nom de la table après FROM
     if (tmp != NULL) {
         table = strtok(NULL, " ");
+    }
+    //Si les colonnes/la table sont nulles, on renvoie une erreur
+    if (colonnes == NULL || table == NULL) {
+        free(colonnes);
+        return "Erreur : Commande SELECT incorrecte";
+    }
+
+    //On regarde s'il y a un WHERE
+    if (table != NULL) {
+        tmp = strtok(NULL, " ");
+        if (tmp != NULL && strcasecmp(tmp, "where") == 0) {
+            // On récupère la condition
+            colonne_where = strtok(NULL, " ");
+            condition = strtok(NULL, " ");
+            valeur_where = strtok(NULL, " ");
+
+            // Si il y a une valeur manquante, on renvoie une erreur
+            if (colonne_where == NULL || condition == NULL || valeur_where == NULL) {
+                free(colonnes);
+                return "Erreur : Clause WHERE incorrecte";
+            }
+        }
     }
 
     //Affichage des résultats pour vérification
     printf("Colonnes : %s\n", colonnes ? colonnes : "Aucune");
     printf("Table : %s\n", table ? table : "Aucune");
-
-    //Si les colonnes/la table sont nulles, on renvoie une erreur
-    if (colonnes == NULL || table == NULL) {
-        return "Erreur : Commande SELECT incorrecte";
+    if (colonne_where != NULL) {
+        printf("WHERE %s %s %s\n", colonne_where, condition, valeur_where);
     }
+
+    //Let's go le traitement de la requête
+
+    //Libération de la mémoire
+    free(colonnes);
 
     return "select";
 }
