@@ -269,7 +269,6 @@ void commands(BTree* btree) {
             char* delete_result = delete(btree, commande);
             if (delete_result != NULL) {
                 strcpy(result, delete_result);
-                free(delete_result);
             } else {
                 strcpy(result, "Erreur lors de la suppression");
             }

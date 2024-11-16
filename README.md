@@ -26,6 +26,12 @@ Compilation :   cd "nom du dossier"
 
 J'utilise un make que nous avons developpés avec notre professeur l'an dernier. Surnommé "MakeFile Magique", il récupère nos fichiers sans avoir à les entrer un par un. Je l'ai legerement modifié pour ajouter la compilation avec C99 + la lecture de mes sous dossiers.
 
+Sanitaziers/Outils de debogage :
+Mon makefile étant assez explicite concernant les erreurs grace à mes flags, je n'ai pas eu besoin d'en installer d'autres.
+J'ai par contre utilisé valgrind pour les fuites mémoires, intégré dans un makefile sur ma linux. Je le pusherais sur git
+J'ai choisi valgrind car j'ai debug un ami qui avait installé cet outil, et je l'ai trouvé assez simple de compréhension.
+
+
 # Organisation
 J'ai organisé mon arborescence en fonction de mes fonctions principales, pour eviter que mes .h et .c soient désordonnés.
 Globalement, ma fonction/fichier main.c ne sert qu'a déclencher la première fonction.
@@ -37,10 +43,11 @@ Globalement, ma fonction/fichier main.c ne sert qu'a déclencher la première fo
 Il ne lit que 15 fichiers parce que le programme serait un peu lourd autrement selon moi. Cependant, ce paramètre est changeable dans le code de mon main.C.
 -La bdd est translate dans un Btree (load.c).
 -On peut avoir un appercu graphique de notre bdd
+-On peut effectuer les commands select et delete, avec un where (il faut mettre un espace dans la condition, exemple : select name from eleve where id = 1, delete * from eleve where id = 3)
 
-# Tree
+# Type de Tree
 Concernant l'utilisage d'un arbre, comme vu avec vous, j'utiliserais un Btree sans lequel je vais inserer mes données, extraites du CSV.
-
+Concernant les algos, il y a l'algo de création de l'arbre, celui de recherche, celui de d'insertion et supression utilisant en partie celui de recherche
 
 # Sources
 BTree :
@@ -57,3 +64,8 @@ Et, en très grande partie:
 Style Tableau :
 https://stackoverflow.com/questions/3274824/color-console-in-ansi-c
 https://solarianprogrammer.com/2019/04/08/c-programming-ansi-escape-codes-windows-macos-linux-terminals/
+
+Valgrind :
+https://cscie28.dce.harvard.edu/reference/programming/valgrind/valgrind.html
+https://student.cs.uwaterloo.ca/~cs241/valgrind/
+https://stackoverflow.com/questions/68475131/how-can-i-understand-a-memory-leak-from-valgrind-output

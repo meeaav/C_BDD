@@ -110,7 +110,7 @@ BTree* loadBDD(char *bddChoisie) {
 
     //Initialisation des variables
     char line[MAX_LINE_LENGTH];
-    char *token;
+    char *tmp;
     char *columnNames[MAX_COLUMNS];
     int columnCount = 0;
     Table *currentTable = NULL;
@@ -135,14 +135,14 @@ BTree* loadBDD(char *bddChoisie) {
         } else if (currentTable != NULL) { //Sinon, on lit les colonnes et les valeurs
             if (columnCount == 0) {
                 //Si le compteur de colonnes est à 0, on lit les colonnes
-                token = strtok(line, ",");
-                while (token != NULL && columnCount < MAX_COLUMNS) {
+                tmp = strtok(line, ",");
+                while (tmp != NULL && columnCount < MAX_COLUMNS) {
                     //On lit les colonnes et on les copie
                     columnNames[columnCount] = (char*)malloc(MAX_NAME_LENGTH * sizeof(char)); //Alloc mémoire
-                    strncpy(columnNames[columnCount], token, MAX_NAME_LENGTH - 1); //Copiage
+                    strncpy(columnNames[columnCount], tmp, MAX_NAME_LENGTH - 1); //Copiage
                     columnNames[columnCount][MAX_NAME_LENGTH - 1] = '\0'; //Le caractère de fin de ligne
                     columnCount++; //Incrémentation pour passer à la suivante
-                    token = strtok(NULL, ","); 
+                    tmp = strtok(NULL, ","); 
                 }
 
                 //On crée la table avec les colonnes
@@ -159,12 +159,12 @@ BTree* loadBDD(char *bddChoisie) {
                 //Sinon, on lit les valeurs
                 char *values[MAX_COLUMNS];
                 int valueCount = 0;
-                token = strtok(line, ","); 
-                while (token != NULL && valueCount < columnCount) {
+                tmp = strtok(line, ","); 
+                while (tmp != NULL && valueCount < columnCount) {
                     //On lit les valeurs et on les copie
-                    values[valueCount] = token; //Copiage de la valeur
+                    values[valueCount] = tmp; //Copiage de la valeur
                     valueCount++; //Incrémentation
-                    token = strtok(NULL, ",");
+                    tmp = strtok(NULL, ",");
                 }
 
                 //On insère les valeurs dans la table

@@ -1,6 +1,6 @@
 #Variables
 CC = gcc
-CFLAGS = -O2 -Wall -Wextra -Werror -ansi -std=c99
+CFLAGS = -O2 -Wall -Wextra -Werror -ansi -std=c99 -g
 CLIBS = -lm
 EXE = executable
 OBJ_DIR = obj/
@@ -26,3 +26,15 @@ $(OBJ_DIR)%.o: %.c $(FILEH)
 clean:
 	rm -rf $(OBJ_DIR)*.o
 	rm -rf $(EXE)
+
+#Nouvelle cible pour Valgrind
+valgrind: $(EXE)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(EXE)
+
+#Cible pour exécuter Valgrind et sauvegarder la sortie dans un fichier
+valgrind-log: $(EXE)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(EXE) 2> valgrind_output.txt
+
+#Cible pour nettoyer tous les fichiers générés, y compris le rapport Valgrind
+clean-all: clean
+	rm -f valgrind_output.txt
