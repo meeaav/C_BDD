@@ -8,9 +8,18 @@ Je me suis entrainée de mon coté en relisant/reproduisant les exercices d'abor
 Après m'être penchée sur l'algo, je me suis mise à developper des bouts de codes, puis le code complet de l'exercice.
 
 # Technos utilisées
+Prérequis : gcc + make          
 Version de C : Bien qu'habituée au C90, j'ai recemment choisi de basculer vers du C99, notamment parce que j'ai la facheuse habitude des commentaires en //, n'existant pas en C90.
 Distrib : Debian 12
-Prérequis : gcc + make          
+Version Gcc: 12.2.0 ()
+Flags utilisés :
+    -02 : Optimisation level 2, permet de dev un programme sans necessités particulières en terme de perf. 
+    -Wall : Active tous les advertissements. 
+    -Wextra : Active le maximum d'advertissements.
+    -Werror : Les adv sont traités comme des erreurs, ce qui permet de ne rien laisser passer.
+    -ansi : utiliser ANSI
+    -std=c99 : comme expliqué ci-dessus, surtout pour utiliser les commentaires en //
+
 Compilation :   cd "nom du dossier"
                 make
                 ./executable
