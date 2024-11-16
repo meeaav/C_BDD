@@ -14,7 +14,7 @@ void commands(BTree* btree) {
         printf("\033[1;31m");
         printf("Erreur : Aucune base de donnée chargée\n");
         printf("\033[0m");
-        return 0;
+        return;
         }
         
         //Demander à l'utilisateur de rentrer une commande
