@@ -285,6 +285,101 @@ char* insert(BTree* btree, char* commande) {
 }
 
 //###############################################UPDATE#####################################################
+//Fonction pour mettre à jour une ligne dans une table
+char* update(BTree* btree, char* commande) {
+    char* tableName = NULL;
+    char* setColumn = NULL;
+    char* setValue = NULL;
+    char* whereColumn = NULL;
+    char* whereOperator = NULL;
+    char* whereValue = NULL;
+    char* tmp = strtok(commande, " ");
+
+    // Analyser la commande
+    if (tmp != NULL) tableName = strtok(NULL, " "); // Nom de la table
+    if (tmp != NULL) tmp = strtok(NULL, " "); // "set"
+    if (tmp != NULL && strcasecmp(tmp, "set") == 0) {
+        setColumn = strtok(NULL, " ");
+        tmp = strtok(NULL, " "); // "="
+        if (tmp != NULL && strcmp(tmp, "=") == 0) {
+            setValue = strtok(NULL, " ");
+        }
+    }
+    tmp = strtok(NULL, " "); // "where"
+    if (tmp != NULL && strcasecmp(tmp, "where") == 0) {
+        whereColumn = strtok(NULL, " ");
+        whereOperator = strtok(NULL, " ");
+        whereValue = strtok(NULL, " ");
+    }
+
+    if (tableName == NULL || setColumn == NULL || setValue == NULL || 
+        whereColumn == NULL || whereOperator == NULL || whereValue == NULL) {
+        return strdup("Erreur : Commande UPDATE incorrecte");
+    }
+
+    // Trouver la table
+    Table* tableUpdate = getTableInBtree(btree, tableName);
+    if (tableUpdate == NULL) {
+        return strdup("Erreur : Table inexistante");
+    }
+
+    // Trouver l'index de la colonne à mettre à jour
+    int column_index = -1;
+    for (int i = 0; i < tableUpdate->columnCount; i++) {
+        if (strcasecmp(tableUpdate->columnNames[i], setColumn) == 0) {
+            column_index = i;
+            break;
+        }
+    }
+    if (column_index == -1) {
+        return strdup("Erreur : Colonne à mettre à jour inexistante");
+    }
+
+    // Trouver l'index de la colonne pour la condition WHERE
+    int where_column_index = -1;
+    for (int i = 0; i < tableUpdate->columnCount; i++) {
+        if (strcasecmp(tableUpdate->columnNames[i], whereColumn) == 0) {
+            where_column_index = i;
+            break;
+        }
+    }
+    if (where_column_index == -1) {
+        return strdup("Erreur : Colonne WHERE inexistante");
+    }
+
+    // Parcourir les lignes et mettre à jour celles qui correspondent à la condition
+    int updated_count = 0;
+    for (int i = 0; i < tableUpdate->rowCount; i++) {
+        char* cell_value = tableUpdate->rows[i].values[where_column_index];
+        if (strcmp(whereOperator, "=") == 0) {
+            if (strcmp(cell_value, whereValue) == 0) {
+                strcpy(tableUpdate->rows[i].values[column_index], setValue);
+                updated_count++;
+            }
+        } else if (strcmp(whereOperator, ">") == 0) {
+            if (atoi(cell_value) > atoi(whereValue)) {
+                strcpy(tableUpdate->rows[i].values[column_index], setValue);
+                updated_count++;
+            }
+        } else if (strcmp(whereOperator, "<") == 0) {
+            if (atoi(cell_value) < atoi(whereValue)) {
+                strcpy(tableUpdate->rows[i].values[column_index], setValue);
+                updated_count++;
+            }
+        } else {
+            return strdup("Erreur : Opérateur inconnu");
+        }
+    }
+
+    // Préparer le message de résultat
+    char* result = malloc(100 * sizeof(char));
+    if (result == NULL) {
+        return strdup("Erreur : Allocation mémoire échouée");
+    }
+    snprintf(result, 100, "%d ligne(s) mise(s) à jour dans la table %s", updated_count, tableName);
+    return result;
+}
+
 
 //###############################################Prog Principal#####################################################
 //Fonction principale pour gérer les commandes
@@ -316,7 +411,7 @@ void commands(BTree* btree) {
                 strcpy(result, "Erreur lors de la suppression");
             }
         } else if (strncmp(commande, "update", 6) == 0) {
-            printf("update\n");
+            strcpy(result, update(btree, commande));
         } else if (strcmp(commande, "0") != 0) {
             printf("\033[1;31mCommande inconnue\n\033[0m");
         }
