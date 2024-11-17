@@ -64,9 +64,21 @@ void display_menu( BTree* btree) {
                 break;
             case '3':
                 //Sauvegarder les changements effectués
+                char filename[100];
+                do {
                 printf("\033[1;32m");
-                printf("Sauvegarde des changements effectués\n");
+                printf("Sous quel nom voulez vous enregistrer le fichier?\n");
                 printf("\033[0m");
+                scanf(" %[^\n]", filename);
+                if (strlen(filename) == 0) {
+                    printf("\033[1;31m");
+                    printf("Erreur : Nom de fichier invalide\n");
+                    printf("\033[0m");
+                } else {
+                    break;
+                }
+                } while (1);
+                save(btree, filename);
                 break;
             case '4':
                 //Charger une autre base de donnée
