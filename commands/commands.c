@@ -1,8 +1,4 @@
 #include "commands.h"
-//On ignore les warnings pour les fonctions non déclarées parce que j'ai pas terminééééé
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wimplicit-function-declaration"
-#pragma GCC diagnostic ignored "-Wunused-parameter"
 
 //Fonction getTableInBtree pour récupérer la table recherchée 
 Table* getTableInBtree(BTree* btree, const char* tableName) {
@@ -45,6 +41,31 @@ Table* getTableInBtree(BTree* btree, const char* tableName) {
     }
     return NULL;
 }
+
+
+//Fonction  pour libérer la mémoire d'une table
+void freeTable(Table* table) {
+    if (table == NULL) return;
+
+    //Libérer les noms des colonnes
+    for (int i = 0; i < table->columnCount; i++) {
+        free(table->columnNames[i]);
+    }
+    free(table->columnNames);
+
+    //Libérer les lignes
+    for (int i = 0; i < table->rowCount; i++) {
+        for (int j = 0; j < table->columnCount; j++) {
+            free(table->rows[i].values[j]);
+        }
+        free(table->rows[i].values);
+    }
+    free(table->rows);
+
+    //Libérer la structure de la table
+    free(table);
+}
+
 
 //###############################################SELECT#####################################################
 char* select(BTree* btree, char* commande) {
@@ -170,7 +191,7 @@ char* delete(BTree* btree, char* commande) {
     //Vérifier la clause WHERE
     tmp = strtok(NULL, " ");
     if (tmp != NULL && strcasecmp(tmp, "where") == 0) {
-        whereColumn = strtok(NULL, " ");
+        whereColumn = strtok(NULL, " "); 
         whereOperator = strtok(NULL, " ");
         whereValue = strtok(NULL, " ");
         if (whereColumn == NULL || whereOperator == NULL || whereValue == NULL) {
@@ -187,47 +208,47 @@ char* delete(BTree* btree, char* commande) {
     //##Recherche de commande##
 
     //Compteur du nombre de lignes supprimées
-    int deleted_cpt = 0;
-    int column_index = -1;
+    int deletedCpt = 0;
+    int columnIndex = -1;
 
     //Trouver l'index de la colonne pour la condition WHERE
     if (whereColumn != NULL) {
         for (int i = 0; i < tableDelete->columnCount; i++) {
             if (strcasecmp(tableDelete->columnNames[i], whereColumn) == 0) {
-                column_index = i;
+                columnIndex = i;
                 break;
             }
         }
-        if (column_index == -1) {
+        if (columnIndex == -1) {
             return strdup("Erreur : Colonne inexistante");
         }
     }
 
     //Parcourir les lignes et supprimer celles qui correspondent à la condition
     for (int i = 0; i < tableDelete->rowCount; i++) {
-        int content_to_delete = (whereColumn == NULL); //Si pas de WHERE, on supprime tout
+        int contentToDelete = (whereColumn == NULL); //Si pas de WHERE, on supprime tout
 
         if (whereColumn != NULL) {
-            char* cell_value = tableDelete->rows[i].values[column_index];
+            char* cellValue = tableDelete->rows[i].values[columnIndex];
             if (strcmp(whereOperator, "=") == 0) {
-                content_to_delete = (strcmp(cell_value, whereValue) == 0);
+                contentToDelete = (strcmp(cellValue, whereValue) == 0);
             } else if (strcmp(whereOperator, ">") == 0) {
-                content_to_delete = (atoi(cell_value) > atoi(whereValue));
+                contentToDelete = (atoi(cellValue) > atoi(whereValue)); //atoi convertit une chaine de caractères en entier
             } else if (strcmp(whereOperator, "<") == 0) {
-                content_to_delete = (atoi(cell_value) < atoi(whereValue));
+                contentToDelete = (atoi(cellValue) < atoi(whereValue));
             } else {
                 return strdup("Erreur : Opérateur inconnu");
             }
         }
 
-        if (content_to_delete) {
+        if (contentToDelete) {
             //Supprimer la ligne en décalant toutes les lignes suivantes
             for (int j = i; j < tableDelete->rowCount - 1; j++) {
                 tableDelete->rows[j] = tableDelete->rows[j + 1];
             }
             tableDelete->rowCount--;
             i--; //Reculer d'un indice car on a décalé les lignes
-            deleted_cpt++;
+            deletedCpt++;
         }
     }
 
@@ -238,7 +259,7 @@ char* delete(BTree* btree, char* commande) {
     }
 
     //Afficher le nombre de lignes supprimées
-    snprintf(result, 100, "%d ligne(s) supprimée(s) de %s", deleted_cpt, tableName); //snprintf permet de formater une chaine de caractères avec un nombre limité de caractères (zinon ce serait vraiment trop long...)
+    snprintf(result, 100, "%d ligne(s) supprimée(s) de %s", deletedCpt, tableName); //snprintf permet de formater une chaine de caractères avec un nombre limité de caractères (zinon ce serait vraiment trop long...)
     return result; 
 }
 
@@ -287,6 +308,7 @@ char* insert(BTree* btree, char* commande) {
 //###############################################UPDATE#####################################################
 //Fonction pour mettre à jour une ligne dans une table
 char* update(BTree* btree, char* commande) {
+    //Déclaration des variables
     char* tableName = NULL;
     char* setColumn = NULL;
     char* setValue = NULL;
@@ -295,89 +317,157 @@ char* update(BTree* btree, char* commande) {
     char* whereValue = NULL;
     char* tmp = strtok(commande, " ");
 
-    // Analyser la commande
-    if (tmp != NULL) tableName = strtok(NULL, " "); // Nom de la table
-    if (tmp != NULL) tmp = strtok(NULL, " "); // "set"
+    //Analyser la commande 
+    if (tmp != NULL) tableName = strtok(NULL, " "); //Nom de la table
+    if (tmp != NULL) tmp = strtok(NULL, " "); //"set"
     if (tmp != NULL && strcasecmp(tmp, "set") == 0) {
         setColumn = strtok(NULL, " ");
-        tmp = strtok(NULL, " "); // "="
+        tmp = strtok(NULL, " "); //"="
         if (tmp != NULL && strcmp(tmp, "=") == 0) {
             setValue = strtok(NULL, " ");
         }
     }
-    tmp = strtok(NULL, " "); // "where"
+    tmp = strtok(NULL, " "); //"where"
     if (tmp != NULL && strcasecmp(tmp, "where") == 0) {
         whereColumn = strtok(NULL, " ");
         whereOperator = strtok(NULL, " ");
         whereValue = strtok(NULL, " ");
     }
 
+
+    //Vérifier la validité de la commande, si tous les paramètres sont présents
     if (tableName == NULL || setColumn == NULL || setValue == NULL || 
         whereColumn == NULL || whereOperator == NULL || whereValue == NULL) {
         return strdup("Erreur : Commande UPDATE incorrecte");
     }
 
-    // Trouver la table
+    //Trouver la table
     Table* tableUpdate = getTableInBtree(btree, tableName);
     if (tableUpdate == NULL) {
         return strdup("Erreur : Table inexistante");
     }
 
-    // Trouver l'index de la colonne à mettre à jour
-    int column_index = -1;
+    //Trouver l'index de la colonne à mettre à jour
+    int columnIndex = -1;
     for (int i = 0; i < tableUpdate->columnCount; i++) {
         if (strcasecmp(tableUpdate->columnNames[i], setColumn) == 0) {
-            column_index = i;
+            columnIndex = i;
             break;
         }
     }
-    if (column_index == -1) {
+    if (columnIndex == -1) {
         return strdup("Erreur : Colonne à mettre à jour inexistante");
     }
 
-    // Trouver l'index de la colonne pour la condition WHERE
-    int where_column_index = -1;
+    //Trouver l'index de la colonne pour la condition WHERE
+    int whereColumnIndex = -1;
     for (int i = 0; i < tableUpdate->columnCount; i++) {
         if (strcasecmp(tableUpdate->columnNames[i], whereColumn) == 0) {
-            where_column_index = i;
+            whereColumnIndex = i;
             break;
         }
     }
-    if (where_column_index == -1) {
+    if (whereColumnIndex == -1) {
         return strdup("Erreur : Colonne WHERE inexistante");
     }
 
-    // Parcourir les lignes et mettre à jour celles qui correspondent à la condition
-    int updated_count = 0;
+    //Parcourir les lignes et mettre à jour celles qui correspondent à la condition
+    int updatedCount = 0;
     for (int i = 0; i < tableUpdate->rowCount; i++) {
-        char* cell_value = tableUpdate->rows[i].values[where_column_index];
+        char* cellValue = tableUpdate->rows[i].values[whereColumnIndex];
         if (strcmp(whereOperator, "=") == 0) {
-            if (strcmp(cell_value, whereValue) == 0) {
-                strcpy(tableUpdate->rows[i].values[column_index], setValue);
-                updated_count++;
+            if (strcmp(cellValue, whereValue) == 0) {
+                strcpy(tableUpdate->rows[i].values[columnIndex], setValue);
+                updatedCount++;
             }
         } else if (strcmp(whereOperator, ">") == 0) {
-            if (atoi(cell_value) > atoi(whereValue)) {
-                strcpy(tableUpdate->rows[i].values[column_index], setValue);
-                updated_count++;
+            if (atoi(cellValue) > atoi(whereValue)) {
+                strcpy(tableUpdate->rows[i].values[columnIndex], setValue);
+                updatedCount++;
             }
         } else if (strcmp(whereOperator, "<") == 0) {
-            if (atoi(cell_value) < atoi(whereValue)) {
-                strcpy(tableUpdate->rows[i].values[column_index], setValue);
-                updated_count++;
+            if (atoi(cellValue) < atoi(whereValue)) {
+                strcpy(tableUpdate->rows[i].values[columnIndex], setValue);
+                updatedCount++;
             }
         } else {
             return strdup("Erreur : Opérateur inconnu");
         }
     }
 
-    // Préparer le message de résultat
+    //Préparer le message de résultat
     char* result = malloc(100 * sizeof(char));
     if (result == NULL) {
         return strdup("Erreur : Allocation mémoire échouée");
     }
-    snprintf(result, 100, "%d ligne(s) mise(s) à jour dans la table %s", updated_count, tableName);
+    snprintf(result, 100, "%d ligne(s) mise(s) à jour dans la table %s", updatedCount, tableName);
     return result;
+}
+
+//###############################################DROP TABLE#####################################################
+//Fonction pour supprimer une table
+char* dropTable(BTree* btree, char* commande) {
+    //Déclaration des variables
+    char* tableName = NULL;
+    char* tmp = strtok(commande, " ");
+
+    //Analyser la commande
+    if (tmp != NULL) tmp = strtok(NULL, " "); //Sauter "drop"
+    if (tmp != NULL && strcasecmp(tmp, "table") == 0) {
+        tableName = strtok(NULL, " ");
+    }
+    if (tableName == NULL) {
+        return strdup("Erreur : Commande DROP TABLE incorrecte");
+    }
+
+    //Trouver la table
+    Table* tableDrop = getTableInBtree(btree, tableName);
+    if (tableDrop == NULL) {
+        return strdup("Erreur : Table inexistante");
+    }
+
+    //Fonction pour supprimer la table du nœud
+    int removeTableFromNode(BTreeNode* node) {
+        for (int i = 0; i < node->keyCount; i++) {
+            if (strcasecmp(node->keys[i], tableName) == 0) {
+                //Libérer la mémoire de la table
+                freeTable(node->tables[i]);
+
+                //Décaler les clés et tables restantes
+                for (int j = i; j < node->keyCount - 1; j++) {
+                    node->keys[j] = node->keys[j + 1];
+                    node->tables[j] = node->tables[j + 1];
+                }
+                node->keyCount--;
+
+                return 1; //Table trouvée et supprimée
+            }
+        }
+
+        //Si ce n'est pas une feuille, chercher dans les enfants
+        if (!node->isLeaf) {
+            for (int i = 0; i <= node->keyCount; i++) {
+                if (removeTableFromNode(node->children[i])) {
+                    return 1;
+                }
+            }
+        }
+
+        return 0; //Table non trouvée
+    }
+
+    //Supprimer la table de l'arbre
+    if (removeTableFromNode(btree->root)) {
+        //Si la racine est vide après la suppression, ajuster l'arbre
+        if (btree->root->keyCount == 0 && !btree->root->isLeaf) {
+            BTreeNode* oldRoot = btree->root;
+            btree->root = btree->root->children[0];
+            free(oldRoot);
+        }
+        return strdup("Table supprimée avec succès");
+    } else {
+        return strdup("Erreur : Impossible de supprimer la table de l'arbre B");
+    }
 }
 
 
@@ -403,19 +493,26 @@ void commands(BTree* btree) {
         } else if (strncmp(commande, "insert", 6) == 0) {
             strcpy(result, insert(btree, commande));
         } else if (strncmp(commande, "delete",6) == 0) {
-            char* delete_result = delete(btree, commande);
-            if (delete_result != NULL) {
-                strcpy(result, delete_result);
-                free(delete_result);
+            char* deletResult = delete(btree, commande);
+            if (deletResult != NULL) {
+                strcpy(result, deletResult);
+                free(deletResult);
             } else {
                 strcpy(result, "Erreur lors de la suppression");
             }
         } else if (strncmp(commande, "update", 6) == 0) {
             strcpy(result, update(btree, commande));
+        }else if (strncmp(commande, "drop table", 10) == 0) {
+        char* dropResult = dropTable(btree, commande);
+        if (dropResult != NULL) {
+                strcpy(result, dropResult);
+                free(dropResult);
+        } else {
+                strcpy(result, "Erreur lors de la suppression de la table");
+            }
         } else if (strcmp(commande, "0") != 0) {
             printf("\033[1;31mCommande inconnue\n\033[0m");
-        }
-
+        } 
         if (result[0] != '\0') {
             printf("\033[1;32mResultat : %s\n\033[0m", result);
         }

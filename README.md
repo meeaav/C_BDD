@@ -46,6 +46,7 @@ Il ne lit que 15 fichiers parce que le programme serait un peu lourd autrement s
 -La bdd est translate dans un Btree (load.c).
 -On peut avoir un appercu graphique de notre bdd
 -On peut effectuer les commands select et delete, avec un where (il faut mettre un espace dans la condition, exemple : select name from eleve where id = 1, delete * from eleve where id = 3)
+-On peut aussi effectuer un drop table, un update table et un insert into (drop table nom_table, update table set nom_colonne = value where nom_colonne = value, insert into nom_table values value1 value2 value3 ... valueN)
 
 # Type de Tree
 Concernant l'utilisage d'un arbre, comme vu avec vous, j'utiliserais un Btree sans lequel je vais inserer mes données, extraites du CSV.
@@ -57,9 +58,21 @@ https://www.geeksforgeeks.org/implementation-of-b-tree-in-c/
 https://www.programiz.com/dsa/b-tree
 https://www.geeksforgeeks.org/introduction-of-b-tree-2/
 https://www.programiz.com/dsa/insertion-into-a-b-tree
-https://www.tutorialspoint.com/data_structures_algorithms/b_trees.htm
+https://www.tutorialspoint.com/data_structures_algorithms/b_trees.html
+https://www.dataquest.io/blog/b-tree-data-structure/
+https://use-the-index-luke.com/fr/sql/anatomie-dun-index/le-b-tree
+https://www.irif.fr/~carton/Enseignement/Algorithmique/LicenceMathInfo/Programmation/Tree/parcours.html
+https://www.youtube.com/watch?v=r4pTomhzeok
+https://www.youtube.com/watch?v=Yc7bz5C2tIs
+https://www.youtube.com/watch?v=pnUP6heUxi0
+
 Et, en très grande partie:
--Cours de NSI
+-Cours de NSI premiere/terminale +
+https://pixees.fr/informatiquelycee/term/c8c.html
+https://pixees.fr/informatiquelycee/term/c7c.html
+https://www.lyceum.fr/tg/nsi/1-structures-de-donnees/4-arbres/
+http://si.nsi.free.fr/TNSI/Cours/Chapitre9.php
+
 -Cours de Mr TRANCHO
 
 
@@ -71,3 +84,8 @@ Valgrind :
 https://cscie28.dce.harvard.edu/reference/programming/valgrind/valgrind.html
 https://student.cs.uwaterloo.ca/~cs241/valgrind/
 https://stackoverflow.com/questions/68475131/how-can-i-understand-a-memory-leak-from-valgrind-output
+
+
+Rappel SQL:
+https://www.w3schools.com/sql/sql_syntax.asp
+https://www.codecademy.com/article/sql-commands

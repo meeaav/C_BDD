@@ -24,7 +24,15 @@ Etat : Affichage BDD ok, terminal propre, gestion menu
 13 --> ~2h          Début des commands
 stop car malade
 
-16 --> ~10h de dev : Commands select ok
+16 --> ~10h de dev :    Une fois l'algo pour trouver la table le reste etait limpide.
+                        Commands select ok
+                        Commands delete OK
+                        Commands insert into OK
+                        Commands update OK
+                        Commands drop table OK
+
+Points difficulté : après relecture du sujet, j'aurais p-e dû commit mes valgrind mais ils sont supp par mon Makefile, mais fuites mémoires ++++++++++++
+Etat : 
 
 NB: regarder pourquoi il y a une ligne en trop dans l'arbre + gerer le cas ou fichier csv VIDE + gerer le cas ou une cellule est vide (remplissage par none?) + enlever commentaires inutiles/prints
 + faire en une seule ligne les changements de couleur voir dans commands.C
@@ -35,7 +43,7 @@ NB: regarder pourquoi il y a une ligne en trop dans l'arbre + gerer le cas ou fi
 
 
 Obj :   faire des asserts 
-        gerer les inserts
-        gerer les updates
+        gerer les inserts OK
+        gerer les updates OK
         gerer les save
         clean tout le code (et le mettre en anglaiiis)
