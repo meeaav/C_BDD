@@ -40,6 +40,7 @@ void display_database(BTree* btree) {
 //Recuperer le btree en paramètre
 void display_menu( BTree* btree) {
     char choix;
+    char filename[100];
     if (btree == NULL) {
         printf("\033[1;31m Erreur : Impossible de charger la base de donnée\n\033[0m");
         return;
@@ -68,7 +69,6 @@ void display_menu( BTree* btree) {
                 break;
             case '3':
                 //Sauvegarder les changements effectués
-                char filename[100];
                 do {
                 printf("\033[1;32m Entrez le nom du fichier de sauvegarde : \033[0m");
                 scanf(" %[^\n]", filename);
