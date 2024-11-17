@@ -8,6 +8,7 @@
 #include "commands/commands.h" /*Pour fonction de commande SQL*/
 
 
+
 /*Fonction pour scanner les BDD dans le répertoire BDD (.csv)*/
 int scan_bdd(char *listeBDD[], int max_fichiers) {
     DIR *dir;

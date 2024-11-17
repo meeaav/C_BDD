@@ -1,5 +1,41 @@
 #include "menu.h"
 
+//Fonction pour afficher le tree
+void display_database(BTree* btree) {
+    if (btree == NULL || btree->root == NULL) {
+        printf("\033[1;31mErreur : Base de données vide ou non initialisée\n\033[0m");
+        return;
+    }
+
+    BTreeNode* root = btree->root;
+    for (int i = 0; i < root->keyCount; i++) {
+        Table* table = root->tables[i];
+        
+        printf("\n\033[1;37m");
+        printf("╔══════════════════════════════════════════════════════════╗\n");
+        printf("║ %-56s ║\n", table->name);
+        printf("╠══════════════════════════════════════════════════════════╣\n");
+    
+        printf("║ ");
+        printf("\033[1;31m");
+        for (int j = 0; j < table->columnCount; j++) {
+            printf("%-15s", table->columnNames[j]);
+        }
+        printf("\033[1;37m");
+        printf("║\n");
+        printf("╠══════════════════════════════════════════════════════════╣\n");
+        for (int j = 0; j < table->rowCount; j++) {
+            printf("║ ");
+            for (int k = 0; k < table->columnCount; k++) {
+                printf("%-15s", table->rows[j].values[k]);
+            }
+            printf(" ║\n");
+        }
+        printf("╚══════════════════════════════════════════════════════════╝\n");
+        printf("\033[0m");
+    }
+}
+
 //Recuperer le btree en paramètre
 void display_menu( BTree* btree) {
     char choix;
@@ -22,34 +58,7 @@ void display_menu( BTree* btree) {
             case '1':
                 //Afficher la base de données
                 printf("\033[1;32m Afficher la base de données\n \033[0m");
-                //affichzge du contenu de la base de données
-                BTreeNode* root = btree->root;
-                for (int i = 0; i < root->keyCount; i++) {
-                    Table* table = root->tables[i];
-                    
-                    printf("\n\033[1;37m"); //Echapement pour couleur blanche, en gras
-                    printf("╔══════════════════════════════════════════════════════════╗\n"); //J'ai trouvé ces caractères sur un git 
-                    printf("║ %-56s ║\n", table->name);
-                    printf("╠══════════════════════════════════════════════════════════╣\n");
-                
-                    printf("║ ");
-                    printf("\033[1;31m"); //Echapement pour couleur rouge en gras
-                    for (int j = 0; j < table->columnCount; j++) {
-                        printf("%-15s", table->columnNames[j]);
-                    }
-                    printf("\033[1;37m"); //Echapement pour couleur blanche
-                    printf("║\n");
-                    printf("╠══════════════════════════════════════════════════════════╣\n");
-                    for (int j = 0; j < table->rowCount; j++) {
-                        printf("║ ");
-                        for (int k = 0; k < table->columnCount; k++) {
-                            printf("%-15s", table->rows[j].values[k]);
-                        }
-                        printf(" ║\n");
-                    }
-                    printf("╚══════════════════════════════════════════════════════════╝\n");
-                    printf("\033[0m"); //Reset
-                }
+                display_database(btree);
                 break;
             case '2':
                 //Effectuer des commandes
