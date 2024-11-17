@@ -50,6 +50,44 @@ Il ne lit que 15 fichiers parce que le programme serait un peu lourd autrement s
 -On peut aussi effectuer un drop table, un update table et un insert into (drop table nom_table, update table set nom_colonne = value where nom_colonne = value, insert into nom_table values value1 value2 value3 ... valueN)
 -On peut enregistrer nos changements (disk persistence ok)
 
+# Asserts
+N'ayant pas réussi à implémenter mes asserts (trop d'erreurs de segmentation, j'ai abandonné), je vous conseille les commandes suivantes:
+
+//Cas du select *
+select * from competences
+
+//Cas de la table inexistante
+select * from projet 
+
+//Cas du select une colonne selon une condiftion
+select nom from projets where id = 1
+
+//Insert into valide
+insert into EMPLOYES_COMPETENCES values 10 4 moyen
+
+//Select pour vérifier le fonctionnement du insert into ci-dessus
+select * from employes_competences where niveau = moyen
+
+//Insert into invalide
+insert into EMPLOYES_COMPETENCES values 10 4
+
+//Cas du update valide
+update employes_competences set niveau = avancé where id_employe = 10
+
+//Cas du update invalide
+update employes_competences set niveau = avancé
+
+//Cas du delete  (contenu de la table)
+delete * from employes_competences
+
+//POur verifier la suppression
+select * from employes_competences
+
+//Pour supprimer une table
+drop table projets
+
+//Je vous invite ensuite à taper 0, puis 1 afin de voir les changements effectués.
+//Enfin, appuyez sur 3 pour sauvegarder la table.
 
 # Type de Tree
 Concernant l'utilisage d'un arbre, comme vu avec vous, j'utiliserais un Btree sans lequel je vais inserer mes données, extraites du CSV.

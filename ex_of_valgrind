@@ -172,4 +172,11 @@ make: *** [Makefile:32: valgrind] Erreur de segmentation
 
 
 On comprend que le problème vient de la fonction select() qui appelle la fonction strtok_r() qui elle même appelle la fonction strtok() qui est la cause de l'erreur de segmentation. 
-On a donc un problème de pointeur. On va donc essayer de corriger cela en utilisant la fonction strtok() à la place de strtok_r().
+On a donc un problème de pointeur. On va donc essayer de corriger cela en utilisant la fonction strtok() à la place de strtok_r(). 
+J'ai donc modifié la fonction select() en remplaçant strtok_r() par strtok() et cela n'a pas résolu le problème.
+
+J'ai tenté de corriger le soucis de memoire dans choiceBDD() en ajoutant un free() pour chaque malloc() mais cela n'a pas résolu le problème.
+Au contraire, mon programme ne fonctionne plus du tout.
+
+
+--> je vous laisse donc ce cas de figure où valgrind ne m'a pas permis de trouver la solution à mon problème. :/

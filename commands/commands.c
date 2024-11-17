@@ -283,12 +283,17 @@ char* insert(BTree* btree, char* commande) {
 
     //Lire les valeurs à insérer
     int valueCount = 0;
+    int valuesFound = 0;
     while ((tmp = strtok(NULL, " ")) != NULL) {
-        if (strcasecmp(tmp, "values") == 0) break;
-        values[valueCount] = tmp;
-        valueCount++;
+        if (strcasecmp(tmp, "values") == 0) {
+            valuesFound = 1;
+            continue;
+        }
+        if (valuesFound) {
+            values[valueCount] = tmp;
+            valueCount++;
+        }
     }
-
     //Vérifier le nombre de valeurs
     if (valueCount != tableInsert->columnCount) {
         return strdup("Erreur : Nombre de valeurs incorrect");
