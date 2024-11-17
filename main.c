@@ -1,6 +1,7 @@
 /* Librairies */
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 #include <string.h>
 #include <dirent.h>  /*Pour opendir(), readdir(), closedir()*/
 #include "menu/menu.h" /*Pour fonction d'affichage du menu*/
@@ -8,6 +9,45 @@
 #include "commands/commands.h" /*Pour fonction de commande SQL*/
 
 
+/*Fonction qui déclenche tout mes asserts*/
+void asserts() {
+    printf("\033[1;33m════════════════════════════════════════════════════════════════════════════\n\033[0m");
+    printf("\033[1;33mBienvenue dans la partie des tests\n\033[0m");
+    
+    // Ouverture de la base de données "asserts.csv"
+    BTree *btree = loadBDD("asserts.csv");
+    if (btree == NULL) {
+        printf("\033[1;31mErreur : Impossible de charger la base de données de tests.\nRetour au programme principal.\n\n\033[0m");
+        printf("\033[1;33m════════════════════════════════════════════════════════════════════════════\n\033[0m");
+        return;
+    }
+    
+    // Affichage des commandes testées 
+    printf("\033[1;33mTests d'affichage de la bdd stockée en btree :\n\n\033[0m");
+    display_database(btree);
+
+    // Tests des commandes SQL
+    printf("\033[1;33mTests des commandes SQL : commande SELECT * FROM reunions\n\033[0m");
+    
+    // Vérification de l'existence de la table
+    Table* table = getTableInBtree(btree, "reunions");
+    if (table == NULL) {
+        printf("\033[1;31mErreur : La table 'reunions' n'existe pas dans la base de données.\n\033[0m");
+    } else {
+        printf("Table 'reunions' trouvée. Tentative d'exécution de SELECT...\n");
+        char* result = select(btree, "SELECT * FROM reunions");
+        if (result == NULL) {
+            printf("\033[1;31mErreur : La fonction SELECT a retourné NULL.\n\033[0m");
+        } else {
+            printf("Résultat de SELECT : %s\n", result);
+            assert(strcmp(result, "Sélection terminée") == 0);
+        }
+    }
+
+    // Fin des tests
+    printf("\033[1;33mFin des tests\n\033[0m");
+    printf("\033[1;33m════════════════════════════════════════════════════════════════════════════\n\033[0m");
+}
 
 /*Fonction pour scanner les BDD dans le répertoire BDD (.csv)*/
 int scan_bdd(char *listeBDD[], int max_fichiers) {
@@ -49,6 +89,15 @@ int scan_bdd(char *listeBDD[], int max_fichiers) {
 /*Fonction pour choisir une base de donnée*/
 char* choiceBDD(char *listeBDD[], int listBDD) {
     int choix = 0;
+
+    //Choix de lancer les tests ou non
+    do {
+        printf("\033[1;31mVoulez-vous lancer les tests ? (0 pour non, 1 pour oui)\n\033[0m");
+        scanf("%d", &choix);
+        if (choix == 1) {
+            asserts();
+        }
+    } while (choix != 0 && choix != 1);
 
     /*Si la liste est vide, prévenir l'utilisateur*/
     if (listBDD == 0) {

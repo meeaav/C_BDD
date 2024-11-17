@@ -1,0 +1,171 @@
+==39674== 
+==39674== Process terminating with default action of signal 11 (SIGSEGV)
+==39674==  Bad permissions for mapped region at address 0x10C4A0
+==39674==    at 0x4902FD7: strtok_r (strtok_r.c:72)
+==39674==    by 0x10A744: select (commands.c:77)
+==39674==    by 0x109422: asserts (main.c:29)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== HEAP SUMMARY:
+==39674==     in use at exit: 42,336 bytes in 265 blocks
+==39674==   total heap usage: 301 allocs, 36 frees, 83,236 bytes allocated
+==39674== 
+==39674== 0 bytes in 6 blocks are definitely lost in loss record 1 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x109744: createTable (load.c:11)
+==39674==    by 0x109CCF: loadBDD (load.c:129)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 8 bytes in 1 blocks are still reachable in loss record 2 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x109B48: createBTree (load.c:59)
+==39674==    by 0x109B48: loadBDD (load.c:115)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 32 bytes in 1 blocks are still reachable in loss record 3 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x1098B6: createNode (load.c:44)
+==39674==    by 0x109B61: createBTree (load.c:60)
+==39674==    by 0x109B61: loadBDD (load.c:115)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 44 bytes in 3 blocks are still reachable in loss record 4 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x109530: scan_bdd (main.c:55)
+==39674==    by 0x10924C: main (main.c:117)
+==39674== 
+==39674== 80 bytes in 1 blocks are still reachable in loss record 5 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x1098C3: createNode (load.c:45)
+==39674==    by 0x109B61: createBTree (load.c:60)
+==39674==    by 0x109B61: loadBDD (load.c:115)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 80 bytes in 1 blocks are still reachable in loss record 6 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x1098F0: createNode (load.c:49)
+==39674==    by 0x109B61: createBTree (load.c:60)
+==39674==    by 0x109B61: loadBDD (load.c:115)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 88 bytes in 1 blocks are still reachable in loss record 7 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x1098FE: createNode (load.c:50)
+==39674==    by 0x109B61: createBTree (load.c:60)
+==39674==    by 0x109B61: loadBDD (load.c:115)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 216 bytes in 6 blocks are still reachable in loss record 8 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x109744: createTable (load.c:11)
+==39674==    by 0x109C44: loadBDD (load.c:147)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 500 bytes in 10 blocks are still reachable in loss record 9 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x1098DD: createNode (load.c:47)
+==39674==    by 0x109B61: createBTree (load.c:60)
+==39674==    by 0x109B61: loadBDD (load.c:115)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 816 bytes in 6 blocks are still reachable in loss record 10 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x10971D: createTable (load.c:7)
+==39674==    by 0x109C44: loadBDD (load.c:147)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 1,024 bytes in 1 blocks are still reachable in loss record 11 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x48D88CB: _IO_file_doallocate (filedoalloc.c:101)
+==39674==    by 0x48E609F: _IO_doallocbuf (genops.c:347)
+==39674==    by 0x48E609F: _IO_doallocbuf (genops.c:342)
+==39674==    by 0x48E5477: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==39674==    by 0x48E463D: _IO_new_file_xsputn (fileops.c:1243)
+==39674==    by 0x48E463D: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==39674==    by 0x48BF50D: outstring_func (vfprintf-internal.c:239)
+==39674==    by 0x48BF50D: __vfprintf_internal (vfprintf-internal.c:767)
+==39674==    by 0x48B565A: printf (printf.c:33)
+==39674==    by 0x1095DE: choiceBDD (main.c:82)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 1,024 bytes in 1 blocks are still reachable in loss record 12 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x48D88CB: _IO_file_doallocate (filedoalloc.c:101)
+==39674==    by 0x48E609F: _IO_doallocbuf (genops.c:347)
+==39674==    by 0x48E609F: _IO_doallocbuf (genops.c:342)
+==39674==    by 0x48E5203: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:485)
+==39674==    by 0x48E6151: _IO_default_uflow (genops.c:362)
+==39674==    by 0x48C2748: __vfscanf_internal (vfscanf-internal.c:628)
+==39674==    by 0x48B51FD: __isoc99_scanf (isoc99_scanf.c:30)
+==39674==    by 0x1095EF: choiceBDD (main.c:83)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 1,224 bytes in 35 blocks are still reachable in loss record 13 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x1097FD: insertIntoTable (load.c:31)
+==39674==    by 0x109D2F: loadBDD (load.c:169)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 2,700 bytes in 27 blocks are still reachable in loss record 14 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x109770: createTable (load.c:13)
+==39674==    by 0x109C44: loadBDD (load.c:147)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 9,600 bytes in 6 blocks are still reachable in loss record 15 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x10979F: createTable (load.c:17)
+==39674==    by 0x109C44: loadBDD (load.c:147)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 9,600 bytes in 6 blocks are definitely lost in loss record 16 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x10979F: createTable (load.c:17)
+==39674==    by 0x109CCF: loadBDD (load.c:129)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== 15,300 bytes in 153 blocks are still reachable in loss record 17 of 17
+==39674==    at 0x48407B4: malloc (vg_replace_malloc.c:381)
+==39674==    by 0x109825: insertIntoTable (load.c:34)
+==39674==    by 0x109D2F: loadBDD (load.c:169)
+==39674==    by 0x1093E0: asserts (main.c:17)
+==39674==    by 0x1095FF: choiceBDD (main.c:85)
+==39674==    by 0x109259: main (main.c:118)
+==39674== 
+==39674== LEAK SUMMARY:
+==39674==    definitely lost: 9,600 bytes in 12 blocks
+==39674==    indirectly lost: 0 bytes in 0 blocks
+==39674==      possibly lost: 0 bytes in 0 blocks
+==39674==    still reachable: 32,736 bytes in 253 blocks
+==39674==         suppressed: 0 bytes in 0 blocks
+==39674== 
+==39674== For lists of detected and suppressed errors, rerun with: -s
+==39674== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+make: *** [Makefile:32: valgrind] Erreur de segmentation

@@ -2,17 +2,18 @@
 
 //Fonction pour afficher le tree
 void display_database(BTree* btree) {
+    //Afficher la base de données
     if (btree == NULL || btree->root == NULL) {
         printf("\033[1;31mErreur : Base de données vide ou non initialisée\n\033[0m");
         return;
     }
-
+    //affichzge du contenu de la base de données
     BTreeNode* root = btree->root;
     for (int i = 0; i < root->keyCount; i++) {
         Table* table = root->tables[i];
         
         printf("\n\033[1;37m");
-        printf("╔══════════════════════════════════════════════════════════╗\n");
+        printf("╔══════════════════════════════════════════════════════════╗\n");//J'ai trouvé ces caractères sur un git 
         printf("║ %-56s ║\n", table->name);
         printf("╠══════════════════════════════════════════════════════════╣\n");
     
@@ -32,7 +33,7 @@ void display_database(BTree* btree) {
             printf(" ║\n");
         }
         printf("╚══════════════════════════════════════════════════════════╝\n");
-        printf("\033[0m");
+        printf("\033[0m");//Reset
     }
 }
 

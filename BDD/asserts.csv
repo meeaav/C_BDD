@@ -1,0 +1,47 @@
+#EMPLOYES
+id,nom,prenom,poste,date_embauche,salaire
+1,Dubois,Marie,Développeur,2020-03-15,45000
+2,Martin,Luc,Chef de projet,2018-07-01,65000
+3,Leroy,Sophie,Designer UX,2021-01-10,50000
+4,Bernard,Thomas,Testeur QA,2019-11-20,42000
+5,Petit,Claire,Développeur senior,2017-05-05,58000
+
+#PROJETS
+id,nom,date_debut,date_fin,statut
+1,App Mobile E-commerce,2023-01-01,2023-06-30,Terminé
+2,Refonte Site Web,2023-04-15,2023-12-31,En cours
+3,Système de Gestion RH,2023-07-01,2024-03-31,En cours
+4,Plateforme IoT,2023-09-01,2024-06-30,Planifié
+
+#TACHES
+id,id_projet,description,priorite,statut
+1,1,Conception de l'interface,Haute,Terminé
+2,1,Développement backend,Haute,Terminé
+3,2,Analyse des besoins,Moyenne,Terminé
+4,2,Maquettage,Moyenne,En cours
+5,3,Modélisation de la base de données,Haute,En cours
+
+#COMPETENCES
+id,nom,categorie
+1,Java,Programmation
+2,Python,Programmation
+3,SQL,Base de données
+4,React,Frontend
+5,Docker,DevOps
+
+#EMPLOYES_COMPETENCES
+id_employe,id_competence,niveau
+1,1,Expert
+1,3,Intermédiaire
+2,2,Avancé
+3,4,Expert
+4,2,Débutant
+5,1,Expert
+5,5,Avancé
+
+#REUNIONS
+id,date,heure_debut,heure_fin,sujet
+1,2023-11-20,09:00,10:00,Revue de projet App Mobile
+2,2023-11-22,14:00,15:30,Planification Refonte Site Web
+3,2023-11-24,11:00,12:00,Point d'équipe hebdomadaire
+4,2023-11-27,16:00,17:00,Présentation nouvelle technologie

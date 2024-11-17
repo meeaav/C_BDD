@@ -10,5 +10,6 @@
 
 //Fonction pour afficher le menu
 void display_menu(BTree* btree);
+void display_database(BTree* btree);
 
 #endif
