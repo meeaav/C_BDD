@@ -4,7 +4,7 @@
 Table* getTableInBtree(BTree* btree, const char* tableName) {
     //Vérifier si l'arbre est vide
     if (btree == NULL || btree->root == NULL) {
-        printf("L'arbre est vide.\n");
+        printf("\033[1;31mErreur : Arbre vide\n\033[0m");
         return NULL;
     }
     //Récupérer la racine de l'arbre
@@ -17,7 +17,6 @@ Table* getTableInBtree(BTree* btree, const char* tableName) {
             const char* currentTableName = current->keys[i];
             //Si le nom correspond, on retourne la table
             if (strcasecmp(tableName, currentTableName) == 0) {
-                printf("Table '%s' trouvée!\n", tableName);
                 return current->tables[i];
             }
         }
@@ -143,8 +142,8 @@ char* select(BTree* btree, char* commande) {
                         rowToPrint = (atoi(tableSelect->rows[i].values[j]) > atoi(whereValue)); //atoi convertit une chaine de caractères en entier
                     } else if (strcmp(whereOperator, "<") == 0) {
                         rowToPrint = (atoi(tableSelect->rows[i].values[j]) < atoi(whereValue));
-                    }else{
-                        printf("Erreur : Opérateur inconnu\n");
+                    }else {
+                        printf("\033[1;31mErreur : Opérateur inconnu\n\033[0m");
                         //Libération de la mémoire
                         free(columns);
                         return "Sélection terminée";
@@ -185,7 +184,7 @@ char* delete(BTree* btree, char* commande) {
     
     //Si pas de table, retourner une erreur
     if (tableName == NULL) {
-        return strdup("Erreur : Commande DELETE incorrecte");
+        return strdup("Erreur : Commande DELETE incorrecte"); //strdup = malloc + strcpy
     }
 
     //Vérifier la clause WHERE

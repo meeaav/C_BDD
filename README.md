@@ -37,9 +37,10 @@ Pour m'en servir, je regardais le content de HEAP SUMMARY où étaient indiqués
 # Organisation
 J'ai organisé mon arborescence en fonction de mes fonctions principales, pour eviter que mes .h et .c soient désordonnés.
 Globalement, ma fonction/fichier main.c ne sert qu'a déclencher la première fonction.
+J'ai essayé de mettre le nom de mes variables en anglais, j'ai voulu mettre mes commentaires en anglais je me suis ravisée...
 
 
-# Fonctionnement
+# Fonctionalités
 -On peut ajouter des bdd sous format CSV dans le dossier BDD (à condition de respecter le format).
 -Mon programme lit le dossier, récupère les BDD et demande de choisir avec laquelle nous voulons intéragir.
 Il ne lit que 15 fichiers parce que le programme serait un peu lourd autrement selon moi. Cependant, ce paramètre est changeable dans le code de mon main.C.
@@ -47,6 +48,8 @@ Il ne lit que 15 fichiers parce que le programme serait un peu lourd autrement s
 -On peut avoir un appercu graphique de notre bdd
 -On peut effectuer les commands select et delete, avec un where (il faut mettre un espace dans la condition, exemple : select name from eleve where id = 1, delete * from eleve where id = 3)
 -On peut aussi effectuer un drop table, un update table et un insert into (drop table nom_table, update table set nom_colonne = value where nom_colonne = value, insert into nom_table values value1 value2 value3 ... valueN)
+-On peut enregistrer nos changements (disk persistence ok)
+
 
 # Type de Tree
 Concernant l'utilisage d'un arbre, comme vu avec vous, j'utiliserais un Btree sans lequel je vais inserer mes données, extraites du CSV.
@@ -75,6 +78,8 @@ http://si.nsi.free.fr/TNSI/Cours/Chapitre9.php
 
 -Cours de Mr TRANCHO
 
+Commits git:
+https://buzut.net/cours/versioning-avec-git/bien-nommer-ses-commits
 
 Style Tableau :
 https://stackoverflow.com/questions/3274824/color-console-in-ansi-c

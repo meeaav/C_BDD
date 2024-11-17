@@ -93,8 +93,6 @@ void insertIntoBTree(BTree* tree, const char* key, Table* table) {
 
 //Fonction principale pour charger la base de donnée
 BTree* loadBDD(char *bddChoisie) {
-    //printf("Chargement de la base de donnée %s\n", bddChoisie);
-
     //Ouverture du fichier (après reflexion j'aurais pu faire une fonction pour ouvrir le fichier)
     FILE *fichier = NULL;
     char chemin[100] = "BDD/";

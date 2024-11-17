@@ -52,9 +52,7 @@ void save(BTree* btree, char* filename) {
     //Tester si le fichier existe déjà
     FILE* file = fopen(path, "w");
     if (file == NULL) {
-        printf("\033[1;31m");
-        perror("Erreur : Impossible de créer le fichier");
-        printf("\033[0m");
+        printf("\033[1;31m Erreur : Impossible de créer le fichier\n\033[0m");
         return;
     }
     //Sauvegarder les données

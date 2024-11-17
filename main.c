@@ -12,39 +12,37 @@
 int scan_bdd(char *listeBDD[], int max_fichiers) {
     DIR *dir;
     struct dirent *entree;
-    int count = 0;
+    int cpt = 0;
 
     /*Test d'ouverture du répertoire en question*/
     dir = opendir("BDD");
     if (dir == NULL) {
-        printf("\033[1;31m");
-        perror("Erreur lors de l'ouverture du répertoire");
-        printf("\033[0m");
+        printf("\033[1;31mErreur : Impossible d'ouvrir le répertoire BDD\n\033[0m");
         return 0;
     }
 
     /*Récupérer nos csv*/
-    while ((entree = readdir(dir)) != NULL && count < max_fichiers) {
+    while ((entree = readdir(dir)) != NULL && cpt < max_fichiers) {
         if (strstr(entree->d_name, ".csv") != NULL) { /*Si c'est un CSV*/
-            listeBDD[count] = malloc(strlen(entree->d_name) + 1); /*Lui allouer un espace mémoire*/
-            if (listeBDD[count] == NULL) {
+            listeBDD[cpt] = malloc(strlen(entree->d_name) + 1); /*Lui allouer un espace mémoire*/
+            if (listeBDD[cpt] == NULL) {
                 perror("Erreur d'allocation mémoire");
                 closedir(dir);
-                return count; /*Retourner le nombre de fichiers trouvés*/
+                return cpt; /*Retourner le nombre de fichiers trouvés*/
             }
-            strcpy(listeBDD[count], entree->d_name); /*Copier le nom du fichier et l'associer*/
-            count++;
+            strcpy(listeBDD[cpt], entree->d_name); /*Copier le nom du fichier et l'associer*/
+            cpt++;
         }
     }
 
     closedir(dir); /*Fermer le répertoire*/
 
     /*Vérifier si on a atteint la limite de fichiers (Je limite à 15)*/
-    if (count >= max_fichiers) {
-        printf("Il y a trop de bases de données dans le fichier. Limite : %d\n", max_fichiers);
+    if (cpt >= max_fichiers) {
+        printf("\033[1;31mAttention : Le nombre de fichiers a été limité à %d\n\033[0m", max_fichiers);
     }
 
-    return count; /*Je retourne le nombre de fichiers trouvés*/
+    return cpt; /*Je retourne le nombre de fichiers trouvés*/
 }
 
 /*Fonction pour choisir une base de donnée*/
@@ -57,9 +55,7 @@ char* choiceBDD(char *listeBDD[], int listBDD) {
         return NULL; //Retourne NULL si aucune base n'est trouvée
     } else {
         do {
-            printf("\033[1;31m");
-            printf("Quelle base de donnée voulez-vous charger ?\n");
-            printf("\033[0m");
+            printf("\033[1;31m Quelle base de donnée voulez-vous charger ?\n\033[0m");
             for (int i = 0; i < listBDD; i++) {  
                 printf("%d : %s\n", i + 1, listeBDD[i]);
             }
@@ -69,14 +65,10 @@ char* choiceBDD(char *listeBDD[], int listBDD) {
         } while (choix < 0 || choix > listBDD);
 
         if (choix == 0) {
-            printf("\033[1;32m");
-            printf("Vous avez choisi de quitter.\n");
-            printf("\033[0m");
+            printf("\033[1;32m Vous avez choisi de quitter.\n\033[0m");
             return NULL; //Retourne NULL si l'utilisateur quitte
         }
-        printf("\033[1;32m");
-        printf("Vous avez choisi la base de donnée : %s\n\n", listeBDD[choix - 1]); 
-        printf("\033[0m");
+        printf("\033[1;32m Vous avez choisi la base de donnée %s\n\033[0m", listeBDD[choix - 1]);
         return listeBDD[choix - 1]; //Retourne le nom de la base choisie
     }
 }
@@ -94,11 +86,11 @@ int main(void) {
 
     //Charger la base de donnée choisie dans un BTREE
     BTree *btree = loadBDD(bddChoisie);
-
-    /*if (btree != NULL) {
-        printf("Chargement de la base de donnée réussi.\n");
+    if (btree == NULL) {
+        printf("\033[1;31mErreur : Impossible de charger la base de donnée\n\033[0m");
+        return 1;
     }
-    */
+
     //Affichage du menu
     display_menu(btree);
     /*Libération des ressources allouées*/
@@ -106,7 +98,5 @@ int main(void) {
         free(listeBDD[i]);
     }
     } while (1);
-
-
     return 0;
 }

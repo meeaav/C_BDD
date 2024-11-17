@@ -34,6 +34,9 @@ stop car malade
 Points difficulté : après relecture du sujet, j'aurais p-e dû commit mes valgrind mais ils sont supp par mon Makefile, mais fuites mémoires ++++++++++++
 Etat : COmmands OK affichage ok manque les saves.
 
+17/11 --> ~10h de dev : Save ok 
+
+
 NB: regarder pourquoi il y a une ligne en trop dans l'arbre + gerer le cas ou fichier csv VIDE + gerer le cas ou une cellule est vide (remplissage par none?) + enlever commentaires inutiles/prints
 + faire en une seule ligne les changements de couleur voir dans commands.C
 +Revoir les nomenclatures parce que je fais n'importe quoi là
@@ -41,5 +44,4 @@ NB: regarder pourquoi il y a une ligne en trop dans l'arbre + gerer le cas ou fi
 
 
 Obj :   faire des asserts 
-        gerer les save
         clean tout le code (et le mettre en anglaiiis)

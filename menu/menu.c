@@ -4,13 +4,11 @@
 void display_menu( BTree* btree) {
     char choix;
     if (btree == NULL) {
-        printf("Erreur : Aucune base de donnée chargée\n");
+        printf("\033[1;31m Erreur : Impossible de charger la base de donnée\n\033[0m");
         return;
     }
     do {
-        printf("\033[1;31m");
-        printf("Choisissez une option :\n");
-        printf("\033[0m");
+        printf("\033[1;31m Choisissez une option\n\033[0m");
         printf("1 : Afficher la base de données\n");
         printf("2 : Effectuer des commandes\n");
         printf("3 : Sauvegarder les changements effectués\n");
@@ -23,9 +21,7 @@ void display_menu( BTree* btree) {
         switch(choix) {
             case '1':
                 //Afficher la base de données
-                printf("\033[1;32m");
-                printf("Affichage de la base de données\n");
-                printf("\033[0m");
+                printf("\033[1;32m Afficher la base de données\n \033[0m");
                 //affichzge du contenu de la base de données
                 BTreeNode* root = btree->root;
                 for (int i = 0; i < root->keyCount; i++) {
@@ -57,23 +53,17 @@ void display_menu( BTree* btree) {
                 break;
             case '2':
                 //Effectuer des commandes
-                printf("\033[1;32m");
-                printf("Effectuer des commandes\n");
-                printf("\033[0m");
+                printf("\033[1;32m Effectuer des commandes\n \033[0m");
                 commands(btree);
                 break;
             case '3':
                 //Sauvegarder les changements effectués
                 char filename[100];
                 do {
-                printf("\033[1;32m");
-                printf("Sous quel nom voulez vous enregistrer le fichier?\n");
-                printf("\033[0m");
+                printf("\033[1;32m Entrez le nom du fichier de sauvegarde : \033[0m");
                 scanf(" %[^\n]", filename);
                 if (strlen(filename) == 0) {
-                    printf("\033[1;31m");
-                    printf("Erreur : Nom de fichier invalide\n");
-                    printf("\033[0m");
+                    printf("\033[1;31m Erreur : Nom de fichier invalide\n\033[0m");
                 } else {
                     break;
                 }
@@ -82,22 +72,14 @@ void display_menu( BTree* btree) {
                 break;
             case '4':
                 //Charger une autre base de donnée
-                printf("\033[1;32m");
-                printf("Charger une autre base de donnée\n");
-                printf("\n");
-                printf("\033[0m");
+                printf("\033[1;32m Vous avez choisi de charger une autre base de donnée. Retour au menu principal.\n \033[0m");
                 break;
             case '0':
                 //Quitter
-                printf("\033[1;32m");
-                printf("Vous avez choisi de quitter.\n");
-                printf("\033[0m");
-                printf("\n");
+                printf("\033[1;32m Vous avez choisi de quitter.\n \033[0m");
                 break;
             default:
-                printf("\033[1;31m");
-                printf("Erreur : Choix invalide\n");
-                printf("\033[0m");
+                printf("\033[1;31m Erreur : Choix invalide\n \033[0m");
                 break;
         }
         
