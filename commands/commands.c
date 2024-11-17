@@ -75,6 +75,7 @@ char* select(BTree* btree, char* commande) {
     char* whereOperator = NULL;
     char* whereValue = NULL;
     char* tmp = strtok(commande, " ");
+    int resultFound = 0;  // Variable pour vérifier si des résultats ont été trouvés
 
     //Analyser la commande
     if (tmp != NULL) tmp = strtok(NULL, " ");
@@ -99,16 +100,14 @@ char* select(BTree* btree, char* commande) {
     }
 
     //Vérifier la clause WHERE
-    if (tableName != NULL) {
-        tmp = strtok(NULL, " ");
-        if (tmp != NULL && strcasecmp(tmp, "where") == 0) {
-            whereColumn = strtok(NULL, " ");
-            whereOperator = strtok(NULL, " ");
-            whereValue = strtok(NULL, " ");
-            if (whereColumn == NULL || whereOperator == NULL || whereValue == NULL) {
-                free(columns);
-                return "Erreur : Clause WHERE incorrecte";
-            }
+    tmp = strtok(NULL, " ");
+    if (tmp != NULL && strcasecmp(tmp, "where") == 0) {
+        whereColumn = strtok(NULL, " ");
+        whereOperator = strtok(NULL, " ");
+        whereValue = strtok(NULL, " ");
+        if (whereColumn == NULL || whereOperator == NULL || whereValue == NULL) {
+            free(columns);
+            return "Erreur : Clause WHERE incorrecte";
         }
     }
 
@@ -119,14 +118,6 @@ char* select(BTree* btree, char* commande) {
         free(columns);
         return "Erreur : Table inexistante";
     }
-
-    //Afficher les columns sélectionnées
-    for (int i = 0; i < tableSelect->columnCount; i++) {
-        if (strstr(columns, tableSelect->columnNames[i]) != NULL || strcmp(columns, "*") == 0) {
-            printf("%s ", tableSelect->columnNames[i]);
-        }
-    }
-    printf("\n");
 
     //Afficher les données
     for (int i = 0; i < tableSelect->rowCount; i++) {
@@ -139,14 +130,13 @@ char* select(BTree* btree, char* commande) {
                     if (strcmp(whereOperator, "=") == 0) {
                         rowToPrint = (strcmp(tableSelect->rows[i].values[j], whereValue) == 0);
                     } else if (strcmp(whereOperator, ">") == 0) {
-                        rowToPrint = (atoi(tableSelect->rows[i].values[j]) > atoi(whereValue)); //atoi convertit une chaine de caractères en entier
+                        rowToPrint = (atoi(tableSelect->rows[i].values[j]) > atoi(whereValue));
                     } else if (strcmp(whereOperator, "<") == 0) {
                         rowToPrint = (atoi(tableSelect->rows[i].values[j]) < atoi(whereValue));
-                    }else {
+                    } else {
                         printf("\033[1;31mErreur : Opérateur inconnu\n\033[0m");
-                        //Libération de la mémoire
                         free(columns);
-                        return "Sélection terminée";
+                        return "Sélection terminée avec erreur";
                     }
                     break;
                 }
@@ -154,6 +144,7 @@ char* select(BTree* btree, char* commande) {
         }
         //Afficher la ligne si elle a passé la condition
         if (rowToPrint) {
+            resultFound = 1;  // Marquer qu'un résultat a été trouvé
             for (int j = 0; j < tableSelect->columnCount; j++) {
                 if (strstr(columns, tableSelect->columnNames[j]) != NULL || strcmp(columns, "*") == 0) {
                     printf("%s ", tableSelect->rows[i].values[j]);
@@ -164,6 +155,11 @@ char* select(BTree* btree, char* commande) {
     }
 
     free(columns);
+
+    if (!resultFound) {
+        return "Aucun résultat trouvé";
+    }
+
     return "Sélection terminée";
 }
 //###############################################DELETE#####################################################

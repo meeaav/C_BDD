@@ -169,3 +169,7 @@
 ==39674== For lists of detected and suppressed errors, rerun with: -s
 ==39674== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
 make: *** [Makefile:32: valgrind] Erreur de segmentation
+
+
+On comprend que le problème vient de la fonction select() qui appelle la fonction strtok_r() qui elle même appelle la fonction strtok() qui est la cause de l'erreur de segmentation. 
+On a donc un problème de pointeur. On va donc essayer de corriger cela en utilisant la fonction strtok() à la place de strtok_r().
