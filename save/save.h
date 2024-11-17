@@ -8,6 +8,7 @@
 
 
 void save(BTree* btree, char* filename);
+void save_node(BTreeNode* node, FILE* file);
 
 
 #endif
