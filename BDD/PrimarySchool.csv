@@ -1,4 +1,4 @@
-# Table CLASSES
+#CLASSES
 id,professeur,niveau
 1,Mme Dupont,CP
 2,M. Martin,CE1
@@ -6,7 +6,7 @@ id,professeur,niveau
 4,M. Bernard,CM1
 5,Mme Moreau,CM2
 
-# Table ELEVE
+#ELEVE
 id,prenom,nom,id_classe
 1,Lucas,Dupont,1
 2,Sophie,Dupont,1

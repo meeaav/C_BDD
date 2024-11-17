@@ -1,7 +1,4 @@
-#include <stdio.h>
 #include "menu.h"
-#include "../save/save.h"
-#include "../load/load.h"
 
 //Recuperer le btree en paramètre
 void display_menu( BTree* btree) {
@@ -35,7 +32,7 @@ void display_menu( BTree* btree) {
                     Table* table = root->tables[i];
                     
                     printf("\n\033[1;37m"); //Echapement pour couleur blanche, en gras
-                    printf("╔══════════════════════════════════════════════════════════╗\n");
+                    printf("╔══════════════════════════════════════════════════════════╗\n"); //J'ai trouvé ces caractères sur un git 
                     printf("║ %-56s ║\n", table->name);
                     printf("╠══════════════════════════════════════════════════════════╣\n");
                 
@@ -63,6 +60,7 @@ void display_menu( BTree* btree) {
                 printf("\033[1;32m");
                 printf("Effectuer des commandes\n");
                 printf("\033[0m");
+                commands(btree);
                 break;
             case '3':
                 //Sauvegarder les changements effectués
