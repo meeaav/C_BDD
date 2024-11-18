@@ -1,3 +1,5 @@
+Lopes Angélique 3SI2
+
 # Explications
 Database in C
 
